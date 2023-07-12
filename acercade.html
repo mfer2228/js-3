@@ -34,39 +34,51 @@
        </div>
     </nav>
     
-    <header class="m-4">
+    <h1 class="m-4">
         Bienvenid@ 
-    </header>
+    </h1>
 
-   <div class="m-4 container-fluid" >
-    <form class="formulario">
-        <label for="Autor" class="form-label">Ingrese Inicial y Apellido del autor: </label>
-        <input  type="text" class="form-control" id="Autor" placeholder="Ex: M. Jordan">
-      </div>
-      <div class="mb-3">
-        <label for="fecha" class="form-label">Ingrese la fecha de publicación </label>
-        <input  type="text" class="form-control" id="fecha" placeholder="(AAAA, MM,DD)">
-      </div><div class="mb-3">
-        <label for="titulo" class="form-label">Ingrese el título del artículo o libro:</label>
-        <input  type="text" class="form-control" id="titulo" >
-      </div>
-      <div class="mb-3">
-        <label for="fechaConsulta" class="form-label">Ingrese la fecha de consulta:</label>
-        <input  type="text" class="form-control" id="fechaConsulta" placeholder="(AAAA, MM DD)">
-      </div>
-      <div class="mb-3">
-        <label for="sitioWeb" class="form-label">Ingrese el nombre del sitio web:</label>
-        <input type="text" class="form-control" id="sitioWeb" >
-      </div>
-      <div class="mb-3">
-        <label for="url" class="form-label">Ingrese dirección del sitio web:</label>
-        <input type="text" class="form-control" id="url" placeholder="www.ejemplo.com">
-      </form>
-    </div> 
+<div id="menu" class="m-4">
+  <div class="btn-group container-fluid d-flex justify-content-end" role="group" aria-label="Basic mixed styles example">
+    <button type="button"  id="btn agregarc">Agregar una nueva cita</button>
+    <button type="button" id="btn quitarc"> Eliminar cita</button>
+    </div>
+    
+</div>
 
 
+<!-- agregamos formulario -->
 
+ <form action="#" method="#" class="formulario m-2">
+ <ul>
+   <li class="me-4">
+    <input type="text" class="form-control m-2" id="autor" placeholder=" Inicial y apellido del autor">
+    <div class="d-flex flex-row m-2">
+    <p>Fecha en que el artículo fue publicado:</p>
+    <input type="date" class="form-control m-2" id="fecha" placeholder="Fecha de publicación">
+    </div>
+    <input type="text" class="form-control m-2" id="titulo" placeholder="Título del artículo">
+    <div class="d-flex flex-row m-2">
+    <p>Fecha en la que consultaste la página:</p>
+    <input type="date" class="form-control m-2" id="fechaConsulta" placeholder=" Fecha de consulta">
+    </div>
+    <input type="text" class="form-control m-2" id="sitioWeb" placeholder="Nombre del sitio">
+    <input type="text" class="form-control m-2" id="url" placeholder="url">
 
+   </li>
+   <li class="button row-lg m-4">
+       <button class="boton reset" type="reset"> Ups, empiezo de cero</button>
+       <button class="boton listo" type="submit">Agregar</button>
+     </li>
+   </ul>
+  </form>
+
+</div>
+
+<div class="misCitas m-4">
+  <h1>Mis Citas:</h1>
+
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

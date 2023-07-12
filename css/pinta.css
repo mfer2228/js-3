@@ -24,4 +24,8 @@ nav div .quiensos input {
   margin: 20px;
 }
 
+form ul {
+  list-style: none;
+}
+
 /*# sourceMappingURL=pinta.css.map */
