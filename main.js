@@ -102,10 +102,74 @@
 <button type="button" class="btn btn-success">Right</button>
 </div> */}
 
+let citas = []; 
+mostrarCitas()
 
 // creamos el forms:
 
+document.getElementById("listo").addEventListener("click", solicitarDatosCita);
+document.getElementById("eliminar-cita").addEventListener("click", eliminarCita);
+
+
+const form = document.querySelector('#formulario');
+
+
+function solicitarDatosCita () {
+  // Obtener el formulario y los campos de entrada
+      const autor = document.querySelector('#autor');
+      const fecha = document.querySelector('#fecha');
+      const titulo = document.querySelector('#titulo');
+      const fechaConsulta = document.querySelector('#fechaConsulta');
+      const sitioWeb = document.querySelector('#sitioWeb');
+      const url = document.querySelector('#url');
+      
+      // // Formatear el nombre del autor
+      // const partesAutor = autor.(" ");
+      // let nombreAutorFormateado = partesAutor[partesAutor.length - 1];
+      
+      // for (let i = 0; i < partesAutor.length - 1; i++) {
+      //   nombreAutorFormateado += `, ${partesAutor[i].charAt(0)}.`;
+      // }
+      
+      // Crear la cita en formato APA
+      const cita = `${autor} (${fecha}) "${titulo}". Recuperado el ${fechaConsulta} de ${sitioWeb} ${url}`;
+      
+      // Agregar la cita al array
+      citas.push(cita);
+    
+      mostrarCitas()
+  }  
+
+  function mostrarCitas() {
+    const citasDiv = document.getElementById("misCitas");
+  citas.forEach((cita, index) => {
+    const citaDiv = document.createElement("div");
+    citaDiv.innerHTML = `<p>Cita ${index + 1}:</p><p>${cita}</p><hr>`;
+    citasDiv.appendChild(citaDiv);
+  });
+  }
+
+
+
 // Botones de referencia: agregar y quitar (id)
+
+// quitar 
+   function eliminarCita() {
+     const borrarCita = confirm("¿Desea borrar alguna cita?");
+  
+     if (borrarCita) {
+       const numeroCita = prompt("Ingrese el número de la cita que desea borrar:");
+      
+  // Verificar si el número de cita es válido
+       if (numeroCita >= 1 && numeroCita <= citas.length) {
+         citas.splice(numeroCita - 1, 1);
+         console.log("La cita ha sido borrada correctamente.");
+       } else {
+         console.log("Número de cita inválido.");
+       }
+     }
+   }
+  
 
 
 
@@ -119,3 +183,7 @@
 //   <li><a class="dropdown-item" href="#">Something else here</a></li>
 // </ul>
 // </div>"
+
+
+
+okay ya hay algo que se imprime, ahora hay que averiguar como hacer que ese algo sea realmente lo que tu pusiste y no some random cosa pq que ladilla eh

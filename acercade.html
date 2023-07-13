@@ -38,18 +38,23 @@
         Bienvenid@ 
     </h1>
 
+
+
+<div id="misCitas" class=" m-4">
+  <h2>Mis Citas:</h2>
+</div>
+
 <div id="menu" class="m-4">
   <div class="btn-group container-fluid d-flex justify-content-end" role="group" aria-label="Basic mixed styles example">
-    <button type="button"  id="btn agregarc">Agregar una nueva cita</button>
-    <button type="button" id="btn quitarc"> Eliminar cita</button>
-    </div>
+  <a href="#formulario">  <button type="button"  id="btn agregarc">Agregar una nueva cita</button></a>
+  <button type="button" id="eliminar-cita"> Eliminar cita</button>
+  </div>
     
 </div>
 
-
 <!-- agregamos formulario -->
 
- <form action="#" method="#" class="formulario m-2">
+ <form id="formulario" action="#" method="#" class="formulario m-2">
  <ul>
    <li class="me-4">
     <input type="text" class="form-control m-2" id="autor" placeholder=" Inicial y apellido del autor">
@@ -68,17 +73,16 @@
    </li>
    <li class="button row-lg m-4">
        <button class="boton reset" type="reset"> Ups, empiezo de cero</button>
-       <button class="boton listo" type="submit">Agregar</button>
+       <button id="listo" type="submit">Agregar</button>
      </li>
    </ul>
   </form>
 
 </div>
 
-<div class="misCitas m-4">
-  <h1>Mis Citas:</h1>
 
-</div>
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
