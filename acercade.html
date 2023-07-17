@@ -24,10 +24,10 @@
             Generador de citas APA
           </h1>  
 
-             <input class="nav-item" type="text" class="form-control" placeholder=" Nombre" aria-label="nombre" aria-describedby="basic-addon1">
+             <input class="nav-item" id="nombre" type="text" class="form-control" placeholder=" Nombre" aria-label="nombre" aria-describedby="basic-addon1">
 
-             <input class="nav-item" type="password" class="form-control" placeholder=" Contraseña" >
-             <button class="btn btn-dark" type="button">Continuar </button>
+             <input class="nav-item" id="contraseña" type="password" class="form-control" placeholder=" Contraseña" >
+             <button class="btn btn-dark" type="button" onclick="epale()">Continuar </button>
 
 
           </div>
@@ -35,7 +35,7 @@
     </nav>
     
     <h1 class="m-4">
-        Bienvenid@ 
+
     </h1>
 
 
@@ -47,7 +47,7 @@
 <div id="menu" class="m-4">
   <div class="btn-group container-fluid d-flex justify-content-end" role="group" aria-label="Basic mixed styles example">
   <a href="#formulario">  <button type="button"  id="btn agregarc">Agregar una nueva cita</button></a>
-  <button type="button" id="eliminar-cita"> Eliminar cita</button>
+  <button type="button" id="eliminar-cita" onclick="eliminarCita()"> Eliminar cita</button>
   </div>
     
 </div>
@@ -73,7 +73,7 @@
    </li>
    <li class="button row-lg m-4">
        <button class="boton reset" type="reset"> Ups, empiezo de cero</button>
-       <button id="listo" type="submit">Agregar</button>
+       <button id="listo" onclick="nuevaCita()" type="submit">Agregar</button>
      </li>
    </ul>
   </form>
