@@ -1,17 +1,26 @@
 console.log ("quien me manda a borrar esto y volverlo a hacer el día de la entrega")
 
 
-
 // Declaramos el dom 
-let usuario = document.getElementById ("nombre").getAttribute("value")
-let contraseña = document.getElementById ("contraseña").getAttribute("value")
-let borrarC = document.getElementById ("eliminar-cita").getAttribute("value")
-let autor = document.getElementById ("autor").getAttribute("value")
-let fecha = document.getElementById ("fecha").getAttribute("value")
-let titulo = document.getElementById ("titulo").getAttribute("value")
-let fechaConsulta = document.getElementById ("fechaConsulta").getAttribute("value")
-let sitioWeb = document.getElementById ("sitioWeb").getAttribute("value")
-let url = document.getElementById ("url").getAttribute("value")
+let usuario = document.getElementById ("nombre");
+let contraseña = document.getElementById ("contraseña");
+let borrarC = document.getElementById ("eliminar-cita");
+
+
+// Construimos la cita 
+class cita {
+  constructor (autor, fecha, titulo, fechaConsulta, sitioWeb, url){
+  this.autor = autor;
+  this.fecha= fecha;
+  this.titulo = titulo;
+  this.fechaConsulta = fechaConsulta;
+  this.sitioWeb = sitioWeb;
+  this.url = url;
+  }
+}
+
+
+
 
 function epale () {
 const saludo = document.getElementsByTagName("h1");
@@ -21,66 +30,104 @@ hola.innerHTML = `<div> Hola, ${usuario} </div><hr>`;
 document.saludo.append(hola);
 }
 
+let misCitas = []
 
-const citas = []
-
- 
  if(localStorage.getItem("citas")){
+       let CitaStorage = new cita (cita.autor, cita.fecha, cita.titulo, cita.fechaConsulta, cita.sitioWeb, cita.url)
+       misCitas.push(CitaStorage)
     
-    for( let cita of JSON.parse(localStorage.getItem("citas")) )
-    {
-        let nuevaCita = new cita
-        citas.push(nuevaCita)
-     }
-}else{
-    console.log(`ENTRA POR PRIMERA VEZ`)
-    localStorage.setItem("citas", (citas))
-}
+    console.log(misCitas)
+ }else{
+   //grillos suenan, vacío absoluto
+   misCitas = []
+    localStorage.setItem("cita", JSON.stringify(misCitas))
+   }
 
-
-// Declaramos las funciones para:
-
-// Mostrar todas las Citas en el div
-function mostrarCitas() {
-    const citasDiv = document.getElementById("misCitas");
-    citasDiv.innerHTML = "";
+function mostrarCitas (citas) {
+  citas.innerHTML = ""
   
-    citas.forEach((cita, index) => {
-      const citaDiv = document.createElement("div");
-      citaDiv.innerHTML = `<p>${index + 1})</p><p>${cita}</p><hr>`;
-      citasDiv.appendChild(citaDiv);
-  });
+  for (let cita of citas) {
+    nuevaCita = document.createElement ("div")
+    nuevaCita.innerHTML =  `${cita.autor} (${cita.fecha}) "${cita.titulo}". Recuperado el ${cita.fechaConsulta} de ${cita.sitioWeb} ${cita.url}`;
+    
+    citas.appendChild(nuevaCita)
+  }
 
-  localStorage.setItem("citas", citas);
 }
 
-// Agregar una nueva Cita
-function nuevaCita () {
-    // Crear la cita en formato APA
-    const cita = `${autor} (${fecha}) "${titulo}". Recuperado el ${fechaConsulta} de ${sitioWeb} ${url}`;
-      
-    // Agregar la cita al array
-    citas.push(cita);
+function  ordenarAlfTitulo(citas){
+  const citaAlfabetico = [].concat(citas)
+  citaAlfabetico.sort( (a,b) =>{
+     if (a.titulo > b.titulo) {
+        return 1
+      }
+      if (a.titulo < b.titulo) {
+        //return explicito
+        return -1
+      }
+      // a must be equal to b
+      return 0
+  })
 
-    //setear en el storage el array con el libro
-    localStorage.setItem("Citas", JSON.stringify(citas))
-    mostrarCitas()
+  mostrarCitas(citaAlfabetico)
 }
+
+function agregarCita( citas ) {
+
+  let autor = document.getElementById ("autor");
+  let fecha = document.getElementById ("fecha");
+  let titulo = document.getElementById ("titulo");
+  let fechaConsulta = document.getElementById ("fechaConsulta");
+  let sitioWeb = document.getElementById ("sitioWeb");
+  let url = document.getElementById ("url");
+
+  const citaNueva = new cita ( autor.value, fecha.value, titulo.value, fechaConsulta.value, sitioWeb.value, url.value)
+  console.log(citaNueva)
+  Array.push(citaNueva)
+// el storage
+ localStorage.setItem("citas", JSON.stringify(citas));
+
+ //borron y cuenta nueva
+ autor.value = ""
+ fecha.value = ""
+ titulo.value = ""
+ fechaConsulta.value = ""
+ sitioWeb.value = ""
+ url.value = ""
+
+//  Tostadaaa 
+Toastify (
+  {
+     text: `cita agregada con éxito`,
+     duration: 2500,
+     gravity: "bottom",
+     position: "right",
+     style: {
+        color: "white",
+        background: "blue"
+     }
+  }
+).showToast()
+
+}
+
 
 // Eliminar una Cita
+
 function eliminarCita () {
-    const borrarCita = confirm("¿Desea borrar alguna cita?");
-  
-     if (borrarCita) {
-       const numeroCita = prompt("Ingrese el número de la cita que desea borrar:");
-      
-  // Verificar si el número de cita es válido
-       if (numeroCita >= 1 && numeroCita <= citas.length) {
-         citas.splice(numeroCita - 1, 1);
-         console.log("La cita ha sido borrada correctamente.");
-       } else {
-         console.log("Número de cita inválido.");
-       }
+  const borrarCita = confirm("¿Desea borrar alguna cita?");
+
+   if (borrarCita) {
+     const numeroCita = prompt("Ingrese el número de la cita que desea borrar:");
+    
+// Verificar si el número de cita es válido
+     if (numeroCita >= 1 && numeroCita <= cita.length) {
+       cita.splice(numeroCita - 1, 1);
+       console.log("La cita ha sido borrada correctamente.");
+     } else {
+       console.log("Número de cita inválido.");
      }
- mostrarCitas()
+   }
+mostrarCitas()
 }
+
