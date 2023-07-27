@@ -24,39 +24,25 @@ class cita {
 
 function epale () {
 const saludo = document.getElementsByTagName("h1");
-saludo.innerHTML = "";
+saludo[0].innerHTML = "";
 const hola = document.createElement("div");
-hola.innerHTML = `<div> Hola, ${usuario} </div><hr>`;
+hola.innerHTML = `<div> Hola, ${usuario.value} </div><hr>`;
 document.saludo.append(hola);
 }
 
-let misCitas = []
+const misCitas = []
 
- if(localStorage.getItem("citas")){
-       let CitaStorage = new cita (cita.autor, cita.fecha, cita.titulo, cita.fechaConsulta, cita.sitioWeb, cita.url)
-       misCitas.push(CitaStorage)
-    
+ if(localStorage.getItem("cita")){
+  const misCitas = JSON.parse(localStorage.getItem("cita"))
+      let CitaStorage = new cita (cita.autor, cita.fecha, cita.titulo, cita.fechaConsulta, cita.sitioWeb, cita.url)
+      misCitas.push(CitaStorage)
+
     console.log(misCitas)
- }else{
-   //grillos suenan, vacío absoluto
-   misCitas = []
-    localStorage.setItem("cita", JSON.stringify(misCitas))
-   }
 
-function mostrarCitas (citas) {
-  citas.innerHTML = ""
-  
-  for (let cita of citas) {
-    nuevaCita = document.createElement ("div")
-    nuevaCita.innerHTML =  `${cita.autor} (${cita.fecha}) "${cita.titulo}". Recuperado el ${cita.fechaConsulta} de ${cita.sitioWeb} ${cita.url}`;
-    
-    citas.appendChild(nuevaCita)
-  }
+    }
 
-}
-
-function  ordenarAlfTitulo(citas){
-  const citaAlfabetico = [].concat(citas)
+function  ordenarAlfTitulo(misCitas){
+  const citaAlfabetico = [].concat(misCitas)
   citaAlfabetico.sort( (a,b) =>{
      if (a.titulo > b.titulo) {
         return 1
@@ -72,8 +58,34 @@ function  ordenarAlfTitulo(citas){
   mostrarCitas(citaAlfabetico)
 }
 
-function agregarCita( citas ) {
+// Eliminar una Cita
 
+function eliminarCita () {
+  const borrarCita = confirm("¿Desea borrar alguna cita?");
+
+   if (borrarCita) {
+     const numeroCita = prompt("Ingrese el número de la cita que desea borrar:");
+    
+// Verificar si el número de cita es válido
+     if (numeroCita >= 1 && numeroCita <= misCitas.length) {
+       misCitas.splice(numeroCita - 1, 1);
+       console.log("La cita ha sido borrada correctamente.");
+     } else {
+       console.log("Número de cita inválido.");
+     }
+   }
+localStorage.setItem("cita",JSON.stringify(misCitas));
+mostrarCitas()
+}
+
+// llamamos formulario
+const form = document.getElementById ("formulario")
+
+// Evento submit y llamamos agregar cita
+form.addEventListener ("submit", agregarCita)
+
+function agregarCita(event) {
+  event.preventDefault();
   let autor = document.getElementById ("autor");
   let fecha = document.getElementById ("fecha");
   let titulo = document.getElementById ("titulo");
@@ -83,9 +95,9 @@ function agregarCita( citas ) {
 
   const citaNueva = new cita ( autor.value, fecha.value, titulo.value, fechaConsulta.value, sitioWeb.value, url.value)
   console.log(citaNueva)
-  Array.push(citaNueva)
+  misCitas.push(citaNueva)
 // el storage
- localStorage.setItem("citas", JSON.stringify(citas));
+ localStorage.setItem("citas", JSON.stringify(misCitas));
 
  //borron y cuenta nueva
  autor.value = ""
@@ -96,8 +108,7 @@ function agregarCita( citas ) {
  url.value = ""
 
 //  Tostadaaa 
-Toastify (
-  {
+Toastify({
      text: `cita agregada con éxito`,
      duration: 2500,
      gravity: "bottom",
@@ -109,25 +120,19 @@ Toastify (
   }
 ).showToast()
 
+mostrarCitas(misCitas);
 }
 
 
-// Eliminar una Cita
-
-function eliminarCita () {
-  const borrarCita = confirm("¿Desea borrar alguna cita?");
-
-   if (borrarCita) {
-     const numeroCita = prompt("Ingrese el número de la cita que desea borrar:");
+function mostrarCitas (arrayCitas) {
+  
+  const citas = document.getElementById("misCitas");
+  citas.innerHTML = "";
+  
+  arrayCitas.forEach(cita => {
+    const cardCita = document.createElement ("div")
+    cardCita.innerHTML =  `<p> ${cita.autor} (${cita.fecha}) "${cita.titulo}". Recuperado el ${cita.fechaConsulta} de ${cita.sitioWeb} ${cita.url} </p>`;
     
-// Verificar si el número de cita es válido
-     if (numeroCita >= 1 && numeroCita <= cita.length) {
-       cita.splice(numeroCita - 1, 1);
-       console.log("La cita ha sido borrada correctamente.");
-     } else {
-       console.log("Número de cita inválido.");
-     }
-   }
-mostrarCitas()
+    citas.appendChild(cardCita)
+  }); 
 }
-
